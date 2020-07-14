@@ -18,7 +18,10 @@ public class EditorDeProvas {
 	public void construirProva() {
 		JFileChooser aProva = new JFileChooser();
 		aProva.showSaveDialog(aProva);
+		ProcessBuilder pbtxt = new ProcessBuilder("notepad.exe", aProva.getSelectedFile().getName());	
+		ProcessBuilder pb = new ProcessBuilder("cmd","/c", "pdflatex", aProva.getSelectedFile().getName() + ".tex");
 		try {
+			Process ptxt = pbtxt.start();
 			BufferedWriter bw = new BufferedWriter(new FileWriter(aProva.getSelectedFile()));
 			for (int i = 0; i < prova.size(); i++) {
 				bw.write((i + 1) + ". ");
@@ -34,7 +37,9 @@ public class EditorDeProvas {
 				bw.write("\n");
 			}
 			bw.close();
-		} catch (IOException e) {
+			ptxt.waitFor();
+			pb.start();
+		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
 		}		
 	}

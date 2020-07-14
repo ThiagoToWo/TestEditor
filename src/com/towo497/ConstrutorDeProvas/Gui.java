@@ -24,8 +24,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-public class Gui extends JFrame {
-	
+import com.towo497.ConstrutorDeProvas.Gui.IncluirSimbListener;
+
+public class Gui extends JFrame {	
+
 	private static final long serialVersionUID = 1L;
 	private String autor = "Autor: Thiago de Oliveira Alves\ntowo497@gmail.com";
 	private String versao = "Versão: 0.0 \n 07-05-2020\n\n";
@@ -58,6 +60,11 @@ public class Gui extends JFrame {
 		JMenuItem salvarProva = new JMenuItem("Salvar como Arquivo de Texto");
 		salvarProva.setFont(bigFont);
 		salvarProva.addActionListener(new SalvarProvaListener());
+		JMenu menuSimbolo = new JMenu("Símbolos");
+		menuSimbolo.setFont(bigFont);
+		JMenuItem charMap = new JMenuItem("Char Map");
+		charMap.setFont(bigFont);
+		charMap.addActionListener(new IncluirSimbListener());
 		JMenu menuSobre = new JMenu("Informações");
 		menuSobre.setFont(bigFont);
 		JMenuItem autoria = new JMenuItem("Autor");
@@ -72,8 +79,10 @@ public class Gui extends JFrame {
 		menuArquivos.add(salvarProva);		
 		menuSobre.add(autoria);
 		menuSobre.add(versao);
+		menuSimbolo.add(charMap);
 		barraDeMenu.add(menuArquivos);
 		barraDeMenu.add(menuSobre);
+		barraDeMenu.add(menuSimbolo);
 		setJMenuBar(barraDeMenu);
 		
 		// painel norte
@@ -330,6 +339,22 @@ public class Gui extends JFrame {
 				JOptionPane.showMessageDialog(getParent(), "Formato de arquivo inválido", "Erro", JOptionPane.ERROR_MESSAGE);
 			} catch (IOException e1) {			
 				e1.printStackTrace();
+			}
+
+		}
+
+	}
+	
+	public class IncluirSimbListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			Runtime process = Runtime.getRuntime();
+			try {
+				process.exec("charmap");
+				process.wait();
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 
 		}
