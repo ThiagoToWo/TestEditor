@@ -24,8 +24,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import com.towo497.ConstrutorDeProvas.Gui.IncluirSimbListener;
-
 public class Gui extends JFrame {	
 
 	private static final long serialVersionUID = 1L;
